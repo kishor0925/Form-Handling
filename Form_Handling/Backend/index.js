@@ -59,6 +59,16 @@ app.post('/upload', async(req, res) => {
 
 })
 
+app.get('/getdata', async(req, res) => {
+    try{
+     const result = await database.find().toArray();
+     res.send(result);
+    }catch(err){
+        res.status(500).send('Error');
+        console.log(err.message);
+    }
+})
+
 
 
 app.listen(PORT, () => {
