@@ -61,6 +61,3 @@ app.get('/getdata' , async(req,res) => {
 })
 
 
-app.listen(PORT, () => {
-  console.log('I m in Port..');
-})

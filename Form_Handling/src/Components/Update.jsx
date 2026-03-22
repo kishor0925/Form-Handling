@@ -9,6 +9,18 @@ const Update = () => {
       .then((data) => setUserDatas(data))
       .catch((err) => console.log(err.message));
   }, []);
+
+  const handleDelete = (id) => {
+  fetch(`http://localhost:5222/delete/${id}`, {
+    method: "DELETE",
+  })
+    .then((res) => res.json())
+    .then(() => {
+      
+      setUserDatas(userdata.filter((user) => user.id !== id));
+    })
+    .catch((err) => console.log(err));
+};
   return (
     <div className="container mt-4">
       <h1 className="text-center mb-4">Update Page</h1>
@@ -33,7 +45,7 @@ const Update = () => {
               <td>{user.tel}</td>
               <td>
                 <button className="btn btn-info m-2">Update</button>
-                <button className="btn btn-danger m-2">Remove</button>
+                <button className="btn btn-danger m-2" onClick={handleDelete}>Remove</button>
               </td>
             </tr>
           ))}
