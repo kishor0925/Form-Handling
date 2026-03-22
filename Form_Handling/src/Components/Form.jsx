@@ -1,80 +1,72 @@
 import React from 'react'
+import './From.css'
 
 const Form = () => {
 
-    function handleForm(event){
-        event.preventDefault();
-        const form = event.target;
-        // const {name, age, email , phno} = form.[name].value;
+  function handleSubmit(event){
+    event.preventDefault();
+    const datas = event.target;
 
-        const name = form.name.value;
-        const age = form.age.value;
-        const email = form.email.value;
-        const tel = form.tel.value;
+    const name = datas.name.value;
+    const age = datas.age.value;
+    const email = datas.email.value;
+    const tel = datas.tel.value;
 
-
-        if(name === "" || age === "" || email === "" || tel === ""){
-            alert('pls fill all the details')
-        }else{
-
-            const details = {
-                name,
-                age,
-                email,
-                tel
-            };
-
-            fetch("http://localhost:5666/upload",  {
-                method : 'POST',
-                headers : {
-                    'Content-Type' : 'application/json'
-                },
-                body : JSON.stringify(details)
-            
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                alert('alert added succesfully');
-                form.reset();
-                window.location.href = "/update"
-            })
-            .catch( (error) => {
-                console.log('Upload Error', error);
-                alert('Failed to upload');
-            });
+    if(name === "" || age === "" || email === "" || tel === ""){
+        alert('pls fill all required details..')
+    }
+    else
+    {
+        const data = {
+            name,
+            age,
+            email,
+            tel
         }
+       fetch('http://localhost:5222/upload' ,{
+          method : 'POST',
+          headers : {
+            'Content-Type' : 'application/json'
+          },
+          body : JSON.stringify(data)
+       })
+       .then((res) => res.json())
+       .then((data) => {
+        console.log('Form upload successfully')
+    })
+    }
+  }
 
-        
-
-
-    };
   return (
-    <form className='form container' onSubmit={handleForm}>
-        <div >
+    <div className="form-wrapper">
+      <form className='form-card' onSubmit={handleSubmit}>
 
-            <h2 className='text-center'>Details form</h2>
-            <label className='form-label' >Name</label>
-            <input type="text" className='form-control' name="name" placeholder='Enter your Name' />
+        <h1 className="title">Personal Details Form</h1>
 
+        <div className="form-group">
+          <label>Name</label>
+          <input type="text" name="name" />
+        </div>
 
-            <label className='form-label' >Age : </label>
-            <input type="number" className='form-control' name="age" placeholder='Enter your Age' />
+        <div className="form-group">
+          <label>Age</label>
+          <input type="number" name="age" />
+        </div>
 
+        <div className="form-group">
+          <label>Email</label>
+          <input type="email" name="email" />
+        </div>
 
-            <label className='form-label' >Email</label>
-            <input type="email" className='form-control' name="email" placeholder='Enter your Email' />
+        <div className="form-group">
+          <label>Phone</label>
+          <input type="tel" name="tel" />
+        </div>
 
+        <button type="submit">Submit</button>
 
-            <label className='form-label' >ph no : </label>
-            <input type="tel" className='form-control' name="tel" placeholder='Enter your Mobile Number' />
-
-
-            <button type='submit' className='btn btn-primary m-5 px-5 d-flex justify-content-center align-items-center'>
-                upload
-            </button>
-        </div>  
-      
-    </form>
+      </form>
+    </div>
   )
 }
 
