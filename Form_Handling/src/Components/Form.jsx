@@ -1,7 +1,11 @@
 import React from 'react'
 import './From.css'
-
+import { useNavigate } from 'react-router-dom'
 const Form = () => {
+
+    const navigate = useNavigate();
+
+
 
   function handleSubmit(event){
     event.preventDefault();
@@ -33,6 +37,7 @@ const Form = () => {
        .then((res) => res.json())
        .then((data) => {
         console.log('Form upload successfully')
+        navigate('./update');
     })
     }
   }

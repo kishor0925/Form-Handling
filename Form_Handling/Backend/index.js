@@ -47,6 +47,19 @@ app.post('/upload' , async(req,res) => {
   }
 })
 
+//getdata 
+
+app.get('/getdata' , async(req,res) => {
+  try{
+    const result = await database.find().toArray();
+    res.send(result);
+  }
+  catch(err){
+    res.status('500').send('Error');
+    console.log('err' , err.message)
+  }
+})
+
 
 app.listen(PORT, () => {
   console.log('I m in Port..');
