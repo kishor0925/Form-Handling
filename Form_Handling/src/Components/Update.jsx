@@ -48,12 +48,10 @@ const Update = () => {
               <td>{user.email}</td>
               <td>{user.tel}</td>
               <td>
-                <button className="btn btn-info m-2">
-                  <Link to={`/edit/${user._id}`}>
+                  <Link to={`/edit/${user._id}`} className="btn btn-info m-2" >
                   Update
                   </Link>
-                </button>
-                <button className="btn btn-danger m-2" onClick={() => handleDelete(user._id)}>Remove</button>
+                  <button className="btn btn-danger m-2" onClick={() => handleDelete(user._id)}>Remove</button>
               </td>
             </tr>
           ))}
