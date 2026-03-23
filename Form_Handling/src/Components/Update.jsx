@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-
+import { Link } from "react-router-dom";
 const Update = () => {
   const [userdata, setUserDatas] = useState([]);
 
@@ -49,7 +48,11 @@ const Update = () => {
               <td>{user.email}</td>
               <td>{user.tel}</td>
               <td>
-                <button className="btn btn-info m-2">Update</button>
+                <button className="btn btn-info m-2">
+                  <Link to={`/edit/${user._id}`}>
+                  Update
+                  </Link>
+                </button>
                 <button className="btn btn-danger m-2" onClick={() => handleDelete(user._id)}>Remove</button>
               </td>
             </tr>

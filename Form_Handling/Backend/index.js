@@ -82,7 +82,7 @@ app.get('/getdata/:id' , async(req,res) => {
 //update data by patch
 
 
-app.patch('/update' , async(req, res) => {
+app.patch('/update/:id' , async(req, res) => {
   try {
     const id = req.params.id;
     const obj = {_id : new ObjectId(id)}
