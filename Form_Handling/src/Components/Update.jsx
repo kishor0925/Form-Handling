@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 const Update = () => {
   const [userdata, setUserDatas] = useState([]);
 
@@ -10,6 +11,20 @@ const Update = () => {
       .catch((err) => console.log(err.message));
   }, []);
 
+  function handleDelete(id){
+    const updateddata = userdata.filter( (pre_item) => pre_item._id !== id );
+    setUserDatas(updateddata)
+
+    fetch(`http://localhost:5222/del/${id}`, {
+        method : 'DELETE'
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log('data are deleted')
+    }).catch((err) => console.log(err.message));
+  }
+
+  
   
   return (
     <div className="container mt-4">
@@ -22,7 +37,7 @@ const Update = () => {
             <th scope="col">Age</th>
             <th scope="col">Email</th>
             <th scope="col">Tel</th>
-            {/* <th scope="col">Actions</th> */}
+            <th scope="col">Actions</th>
           </tr>
         </thead>
 
@@ -33,10 +48,10 @@ const Update = () => {
               <td>{user.age}</td>
               <td>{user.email}</td>
               <td>{user.tel}</td>
-              {/* <td>
+              <td>
                 <button className="btn btn-info m-2">Update</button>
-                <button className="btn btn-danger m-2" onClick={handleDelete}>Remove</button>
-              </td> */}
+                <button className="btn btn-danger m-2" onClick={() => handleDelete(user._id)}>Remove</button>
+              </td>
             </tr>
           ))}
         </tbody>

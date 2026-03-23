@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dns = require('dns');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const PORT = 5222;
 app.use(cors());
@@ -55,10 +55,62 @@ app.get('/getdata' , async(req,res) => {
     res.send(result);
   }
   catch(err){
-    res.status('500').send('Error');
+    res.status(500).send('Error');
     console.log('err' , err.message)
   }
 })
 
 
+//Get data by id  
+
+app.get('/getdata/:id' , async(req,res) => {
+  try {
+
+    const id = req.params.id;
+    const obj = {_id : new ObjectId(id)}
+    const result = await database.findOne(obj);
+    res.send(result);
+
+  } catch (error) {
+    res.status(500).send('Error');
+    console.log(error.message)
+
+  }
+})
+ 
+
+//update data by patch
+
+
+app.patch('/update' , async(req, res) => {
+  try {
+    const id = req.params.id;
+    const obj = {_id : new ObjectId(id)}
+    const data = req.body;
+    const updateddata = {$set : {...data}};
+    const option = {upsert : true};
+    const result = await database.updateOne(obj, updateddata, option);
+    res.send(result);
+
+  } catch (error) {
+      res.status(500).send('Error');
+      console.log(error.message)
+  }
+})
+
+
+//Delete 
+
+
+app.delete('/del/:id' , async(req,res) => {
+  try {
+    const id = req.params.id;
+    const obj = {_id : new ObjectId(id)}
+    const result = await database.deleteOne(obj)
+    res.send(result)
+  } catch (error) {
+    res.status(500).send('Erro..');
+    console.log(error.message);
+  }
+})
 app.listen(PORT);
