@@ -10,17 +10,7 @@ const Update = () => {
       .catch((err) => console.log(err.message));
   }, []);
 
-  const handleDelete = (id) => {
-  fetch(`http://localhost:5222/delete/${id}`, {
-    method: "DELETE",
-  })
-    .then((res) => res.json())
-    .then(() => {
-      
-      setUserDatas(userdata.filter((user) => user.id !== id));
-    })
-    .catch((err) => console.log(err));
-};
+  
   return (
     <div className="container mt-4">
       <h1 className="text-center mb-4">Update Page</h1>
@@ -32,7 +22,7 @@ const Update = () => {
             <th scope="col">Age</th>
             <th scope="col">Email</th>
             <th scope="col">Tel</th>
-            <th scope="col">Actions</th>
+            {/* <th scope="col">Actions</th> */}
           </tr>
         </thead>
 
@@ -43,10 +33,10 @@ const Update = () => {
               <td>{user.age}</td>
               <td>{user.email}</td>
               <td>{user.tel}</td>
-              <td>
+              {/* <td>
                 <button className="btn btn-info m-2">Update</button>
                 <button className="btn btn-danger m-2" onClick={handleDelete}>Remove</button>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>
